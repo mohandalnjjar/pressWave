@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "305708010940",
+    "project_id": "press-wave",
+    "storage_bucket": "press-wave.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305708010940:android:f4e67dd8e1976b41546fb9",
+        "android_client_info": {
+          "package_name": "com.example.pressWave"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEVrLk2nDTLXFQqqB8PRv1YDIg-lSI00o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
