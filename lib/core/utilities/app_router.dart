@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pressWave/auth/presentation/views/login_View.dart';
 import 'package:pressWave/auth/presentation/views/sign_up_view.dart';
 import 'package:pressWave/core/utilities/constance/app_router_constance.dart';
+import 'package:pressWave/core/utilities/main_view.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
 import 'package:pressWave/home/presentation/views/Recently_viewed_view.dart';
 import 'package:pressWave/home/presentation/views/home_view.dart';
@@ -9,6 +10,7 @@ import 'package:pressWave/home/presentation/views/news_details_view.dart';
 import 'package:pressWave/home/presentation/views/root_view.dart';
 import 'package:pressWave/home/presentation/views/saved_view.dart';
 import 'package:pressWave/home/presentation/views/search_view.dart';
+import 'package:pressWave/home/presentation/views/user_profile_view.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -46,6 +48,14 @@ class AppRouter {
       GoRoute(
         path: RouterConstance.kSingUpViewRouter,
         builder: (context, state) => const SingUpView(),
+      ),
+      GoRoute(
+        path: RouterConstance.kMainViewRouter,
+        builder: (context, state) => const MainView(),
+      ),
+      GoRoute(
+        path: RouterConstance.kUserProfileViewRouter,
+        builder: (context, state) => const UserProfileView(),
       ),
     ],
   );

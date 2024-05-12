@@ -12,6 +12,10 @@ class FirebaseAuthExcep extends Failure {
   factory FirebaseAuthExcep.fromFireException({required String errorCode}) {
     if (errorCode == 'user-not-found') {
       return FirebaseAuthExcep(errorMessage: 'No user found for that email.');
+    } else if (errorCode == 'invalid-credential') {
+      return FirebaseAuthExcep(
+          errorMessage:
+              'The supplied auth credential is malformed or has expired.');
     } else if (errorCode == 'wrong-password') {
       return FirebaseAuthExcep(
           errorMessage: 'Wrong password provided for that user.');
@@ -22,11 +26,8 @@ class FirebaseAuthExcep extends Failure {
       return FirebaseAuthExcep(
           errorMessage: 'The account already exists for that email.');
     } else {
-      FirebaseAuthExcep(
-          errorMessage: 'Opps some thing went wrong, please try later!');
+      return FirebaseAuthExcep(errorMessage: errorCode);
     }
-    return FirebaseAuthExcep(
-        errorMessage: 'Opps some thing went wrong, please try again later!');
   }
 }
 

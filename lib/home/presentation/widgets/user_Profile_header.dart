@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconly/iconly.dart';
 import 'package:pressWave/core/utilities/app_assets.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/core/widgets/shimmer_effect.dart';
@@ -16,7 +17,7 @@ class UserProfileHeader extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeCubitState>(
       builder: (context, state) {
         return Container(
-          height: MediaQuery.sizeOf(context).height * 0.25,
+          height: MediaQuery.sizeOf(context).height * 0.26,
           decoration: BoxDecoration(
             color: BlocProvider.of<ThemeCubit>(context).themeMode
                 ? const Color(0xff22222E)
@@ -26,44 +27,58 @@ class UserProfileHeader extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(300),
-                    border: Border.all(
-                      color: Colors.green,
-                      width: 1.5,
+                IconButton(
+                  style: IconButton.styleFrom(
+                    padding: const EdgeInsets.all(
+                      15,
                     ),
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(300),
-                    child: CachedNetworkImage(
-                      height: 100,
-                      imageUrl:
-                          'https://scontent.fcai11-1.fna.fbcdn.net/v/t39.30808-1/429897266_315090971555366_5332440714602139373_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEP4JPth_tDqE8GzPtHf2aPJhbzQZsUVUImFvNBmxRVQkEwKfa200iZMNHmtGG5_XxVdTg_1gCcY8CEGQlRiliF&_nc_ohc=1u89diX5sMAQ7kNvgGZuReM&_nc_oc=Adjv765aTgp83H4rQJ_4PVAvqnxylM7Lxfk9Fcbv4bq3cQAA8qXr0Ee_Bj9W-WBx-4eYdFKo7Ue1fS2OH9d62hlD&_nc_ht=scontent.fcai11-1.fna&oh=00_AfABlLO38Fpj28k7WrGmgnUvoq8Hke0KhR4WH-LOdHcjjw&oe=663AAE65',
-                      placeholder: (context, url) {
-                        return const AspectRatio(
-                          aspectRatio: 1,
-                          child: ShimmerEffect(),
-                        );
-                      },
-                      errorWidget: (context, url, error) {
-                        return Image.asset(AppAssets.unKnownUser);
-                      },
-                    ),
+                  onPressed: () {},
+                  icon: const Icon(
+                    IconlyLight.edit,
                   ),
                 ),
-                const Text(
-                  'Muhannd Alnjjar',
-                  style: AppStyles.styleSemiBold19,
-                ),
-                Text(
-                  'Mmoalnjjar@gmail.com',
-                  style: AppStyles.styleRegular15.copyWith(color: Colors.grey),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipOval(
+                        child: Flexible(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: CachedNetworkImage(
+                              height: 130,
+                              imageUrl:
+                                  'https://scontent.fcai11-1.fna.fbcdn.net/v/t39.30808-6/436306492_361233060274490_1043539174030441953_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHkVR2me_KYPkhluHlBDq0TkwOqR5U00w6TA6pHlTTTDt4sApYyIeLvABHaUHAg1lE2-I6k4RlknwJSCh8qp7fk&_nc_ohc=46Wp8QVHM1gQ7kNvgFjjf9R&_nc_ht=scontent.fcai11-1.fna&oh=00_AYAAss5qJzRI5JM8_0y2M7MSDMcyJf1swM3hmT1bksnCGA&oe=66467530',
+                              placeholder: (context, url) {
+                                return const AspectRatio(
+                                  aspectRatio: 1,
+                                  child: ShimmerEffect(),
+                                );
+                              },
+                              errorWidget: (context, url, error) {
+                                return Image.asset(AppAssets.unKnownUser);
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      'Muhannd Alnjjar',
+                      style: AppStyles.styleSemiBold19,
+                    ),
+                    Text(
+                      'Mmoalnjjar@gmail.com',
+                      style:
+                          AppStyles.styleRegular15.copyWith(color: Colors.grey),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:pressWave/core/utilities/constance/app_router_constance.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/home/presentation/widgets/drawer_item.dart';
@@ -16,32 +20,22 @@ class HomeViewDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
+      child: Column(
         children: [
           const UserProfileHeader(),
           DrawerItem(
-            title: "Recently Viewed",
-            icon: IconlyLight.time_circle,
+            title: "Last Read",
+            icon: Ionicons.reader_outline,
             onPressed: () async {
               await GoRouter.of(context).push(
                 RouterConstance.kReceltyViewedViewRouter,
               );
             },
           ),
-          const Divider(
-            indent: 10,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Text(
-              'Press Wave Theme',
-              style: AppStyles.styleSemiBold16,
-            ),
-          ),
           BlocBuilder<ThemeCubit, ThemeCubitState>(
             builder: (context, state) {
               return SwitchListTile(
-                contentPadding: EdgeInsets.zero,
+                contentPadding: const EdgeInsets.only(right: 10),
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -49,6 +43,9 @@ class HomeViewDrawer extends StatelessWidget {
                       BlocProvider.of<ThemeCubit>(context).themeMode
                           ? Icons.dark_mode
                           : Icons.light_mode,
+                      color: BlocProvider.of<ThemeCubit>(context).themeMode
+                          ? Colors.white
+                          : Colors.black,
                     ),
                     Text(
                       BlocProvider.of<ThemeCubit>(context).themeMode
@@ -63,6 +60,72 @@ class HomeViewDrawer extends StatelessWidget {
                   await BlocProvider.of<ThemeCubit>(context)
                       .appTheme(themeValue: value);
                 },
+              );
+            },
+          ),
+          const Spacer(),
+          const Divider(
+            indent: 40,
+            endIndent: 40,
+          ),
+          DrawerItem(
+            title: "Sign Out",
+            icon: IconlyLight.logout,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  icon: Image.asset(
+                    height: 60,
+                    'assets/images/errors/alert.png',
+                  ),
+                  title: const Text('Confirm Sign out'),
+                  actionsAlignment: MainAxisAlignment.center,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              side: const BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            onPressed: () {
+                              context.pop();
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.red,
+                            ),
+                            onPressed: () async {
+                              GoRouter.of(context).pushReplacement(
+                                  RouterConstance.kLoginViewRouter);
+                              await FirebaseAuth.instance.signOut();
+                            },
+                            child: Text(
+                              'Yes, SignOut',
+                              style: AppStyles.styleRegular15
+                                  .copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               );
             },
           ),

@@ -3,6 +3,11 @@ import 'package:pressWave/core/utilities/constance/app_colors.dart';
 
 ThemeData appTheme({required bool isDark, required BuildContext context}) {
   return ThemeData(
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: isDark ? Colors.white : Colors.black,
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: isDark

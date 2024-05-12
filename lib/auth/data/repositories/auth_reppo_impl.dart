@@ -16,7 +16,7 @@ class AuthRepoImpl extends AuthRepo {
       if (e is FirebaseAuthException) {
         return left(
           FirebaseAuthExcep.fromFireException(
-            errorCode: e.toString(),
+            errorCode: e.code,
           ),
         );
       } else {
@@ -41,7 +41,7 @@ class AuthRepoImpl extends AuthRepo {
       if (e is FirebaseAuthException) {
         return left(
           FirebaseAuthExcep.fromFireException(
-            errorCode: e.toString(),
+            errorCode: e.code,
           ),
         );
       } else {

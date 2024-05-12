@@ -41,47 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBN5BZ80Lt-GLdPMjM2zveHU7geWtXgxFM',
-    appId: '1:305708010940:web:2fb7f195aabd4f13546fb9',
-    messagingSenderId: '305708010940',
-    projectId: 'press-wave',
-    authDomain: 'press-wave.firebaseapp.com',
-    storageBucket: 'press-wave.appspot.com',
+    apiKey: 'AIzaSyAZad41IxaykVFhgVXWr8AciOXDIHuQccU',
+    appId: '1:572486055461:web:5518744b2a549c455c71cc',
+    messagingSenderId: '572486055461',
+    projectId: 'presswave',
+    authDomain: 'presswave.firebaseapp.com',
+    storageBucket: 'presswave.appspot.com',
+    measurementId: 'G-VRQ01CCJVX',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDEVrLk2nDTLXFQqqB8PRv1YDIg-lSI00o',
-    appId: '1:305708010940:android:f4e67dd8e1976b41546fb9',
-    messagingSenderId: '305708010940',
-    projectId: 'press-wave',
-    storageBucket: 'press-wave.appspot.com',
+    apiKey: 'AIzaSyCZ6kmkFZXSYHfF9W_HcwQ42VEDxRPI_XM',
+    appId: '1:572486055461:android:c2289ab81d1af7205c71cc',
+    messagingSenderId: '572486055461',
+    projectId: 'presswave',
+    storageBucket: 'presswave.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAYt8kOyhjZLyDYO9qKTS9RpLVK5WTbZ4s',
-    appId: '1:305708010940:ios:ac4553da7602716b546fb9',
-    messagingSenderId: '305708010940',
-    projectId: 'press-wave',
-    storageBucket: 'press-wave.appspot.com',
+    apiKey: 'AIzaSyA9xa_seqwl3wdMqlAVFf1pEzqAbA2SQ2c',
+    appId: '1:572486055461:ios:b44292202a9968575c71cc',
+    messagingSenderId: '572486055461',
+    projectId: 'presswave',
+    storageBucket: 'presswave.appspot.com',
     iosBundleId: 'com.example.pressWave',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAYt8kOyhjZLyDYO9qKTS9RpLVK5WTbZ4s',
-    appId: '1:305708010940:ios:ac4553da7602716b546fb9',
-    messagingSenderId: '305708010940',
-    projectId: 'press-wave',
-    storageBucket: 'press-wave.appspot.com',
+    apiKey: 'AIzaSyA9xa_seqwl3wdMqlAVFf1pEzqAbA2SQ2c',
+    appId: '1:572486055461:ios:b44292202a9968575c71cc',
+    messagingSenderId: '572486055461',
+    projectId: 'presswave',
+    storageBucket: 'presswave.appspot.com',
     iosBundleId: 'com.example.pressWave',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBN5BZ80Lt-GLdPMjM2zveHU7geWtXgxFM',
-    appId: '1:305708010940:web:5ff2d34c966014b8546fb9',
-    messagingSenderId: '305708010940',
-    projectId: 'press-wave',
-    authDomain: 'press-wave.firebaseapp.com',
-    storageBucket: 'press-wave.appspot.com',
+    apiKey: 'AIzaSyAZad41IxaykVFhgVXWr8AciOXDIHuQccU',
+    appId: '1:572486055461:web:cde8a78e15a3b63f5c71cc',
+    messagingSenderId: '572486055461',
+    projectId: 'presswave',
+    authDomain: 'presswave.firebaseapp.com',
+    storageBucket: 'presswave.appspot.com',
+    measurementId: 'G-G8NGQSGFW7',
   );
-
 }
