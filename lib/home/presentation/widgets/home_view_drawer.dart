@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:pressWave/core/functions/showed_scaffold_message.dart';
 import 'package:pressWave/core/utilities/constance/app_router_constance.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/home/presentation/widgets/drawer_item.dart';
@@ -113,6 +114,9 @@ class HomeViewDrawer extends StatelessWidget {
                             onPressed: () async {
                               GoRouter.of(context).pushReplacement(
                                   RouterConstance.kLoginViewRouter);
+                              showedScaffoldMessage(
+                                  context: context,
+                                  message: 'Sign out successfully');
                               await FirebaseAuth.instance.signOut();
                             },
                             child: Text(

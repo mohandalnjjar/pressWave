@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -270,9 +271,11 @@ class _SingUpViewBodyState extends State<SingUpViewBody> {
     required String userName,
     required String email,
   }) async {
-    await FirebaseFirestore.instance.collection('users').add({
+    User? user = FirebaseAuth.instance.currentUser;
+    await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
       'UserName': userName,
       'Email': email,
+      'CreatedAt': Timestamp.now(),
     });
   }
 }

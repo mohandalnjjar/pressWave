@@ -3,6 +3,8 @@ import 'package:pressWave/core/utilities/constance/app_colors.dart';
 
 ThemeData appTheme({required bool isDark, required BuildContext context}) {
   return ThemeData(
+    dialogBackgroundColor:
+        isDark ? AppColors.darkScaffoldColor : AppColors.lightScaffoldColor,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: isDark ? Colors.white : Colors.black,
