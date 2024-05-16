@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pressWave/core/utilities/app_assets.dart';
 import 'package:pressWave/core/utilities/styles.dart';
@@ -8,18 +10,21 @@ class CustomAppbar extends StatelessWidget {
   const CustomAppbar({
     super.key,
     required this.title,
-    required this.imageUrl,
     this.onpressed,
     this.iconSize = 24,
   });
 
   final String title;
-  final String imageUrl;
   final double iconSize;
 
   final void Function()? onpressed;
+
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+    final User? user = firebaseAuth.currentUser;
+
     return Padding(
       padding: const EdgeInsets.only(
         top: 10,
@@ -34,27 +39,52 @@ class CustomAppbar extends StatelessWidget {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
               shape: const CircleBorder(),
               padding: EdgeInsets.zero,
               elevation: 0,
             ),
             onPressed: onpressed,
-            child: SizedBox(
-              height: 38,
-              width: 38,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) {
-                    return const ShimmerEffect();
-                  },
-                  errorWidget: (context, url, error) {
-                    return Image.asset(AppAssets.unKnownUser);
-                  },
-                ),
-              ),
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(user!.uid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 40,
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: snapshot.data!.get('userImage'),
+                            placeholder: (context, url) {
+                              return const AspectRatio(
+                                aspectRatio: 1,
+                                child: ShimmerEffect(),
+                              );
+                            },
+                            errorWidget: (context, url, error) {
+                              return Image.asset(AppAssets.unKnownUser);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Text('Waiting');
+                } else if (snapshot.hasError) {
+                  return const Text('error');
+                } else {
+                  return Text(snapshot.data.toString());
+                }
+              },
             ),
           )
         ],

@@ -16,5 +16,4 @@ class RouterConstance {
 
 //
   static const String kSingUpViewRouter = '/kSingUpViewRouter';
-  static const String kUserProfileViewRouter = '/UserProfileViewRouter';
 }

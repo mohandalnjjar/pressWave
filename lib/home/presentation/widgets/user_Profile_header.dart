@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pressWave/core/utilities/app_assets.dart';
+import 'package:pressWave/core/utilities/constance/app_colors.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/core/widgets/shimmer_effect.dart';
-import 'package:pressWave/home/presentation/managers/fetch_user_data_cubit/fetch_user_data_cubit.dart';
+import 'package:pressWave/home/presentation/widgets/edit_profile_image_widget.dart';
 import 'package:pressWave/theme/presentation/managers/theme_cubit/theme_cubit_cubit.dart';
 
 class UserProfileHeader extends StatelessWidget {
@@ -16,104 +20,179 @@ class UserProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+
     return BlocBuilder<ThemeCubit, ThemeCubitState>(
       builder: (context, state) {
-        return BlocBuilder<FetchUserDataCubit, FetchUserDataState>(
-            builder: (context, state) {
-          if (state is FetchUserDataSuccessful) {
-            return Container(
-              height: MediaQuery.sizeOf(context).height * 0.26,
-              decoration: BoxDecoration(
-                color: BlocProvider.of<ThemeCubit>(context).themeMode
-                    ? const Color(0xff22222E)
-                    : const Color(0xffCDE8E5),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        return Container(
+          height: MediaQuery.sizeOf(context).height * 0.26,
+          decoration: BoxDecoration(
+            color: BlocProvider.of<ThemeCubit>(context).themeMode
+                ? const Color(0xff22222E)
+                : const Color(0xffCDE8E5),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
                   children: [
-                    Column(
-                      children: [
-                        IconButton(
-                          style: IconButton.styleFrom(
-                            padding: const EdgeInsets.all(
-                              15,
-                            ),
-                          ),
-                          onPressed: () {},
-                          icon: const Icon(
-                            Ionicons.information_circle_outline,
-                          ),
+                    IconButton(
+                      style: IconButton.styleFrom(
+                        padding: const EdgeInsets.all(
+                          15,
                         ),
-                        IconButton(
-                          style: IconButton.styleFrom(
-                            padding: const EdgeInsets.all(
-                              15,
-                            ),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const AlertDialog(
+                            title: Text(''),
                           ),
-                          onPressed: () {},
-                          icon: const Icon(
-                            IconlyLight.edit,
-                          ),
-                        ),
-                      ],
+                        );
+                      },
+                      icon: const Icon(
+                        Ionicons.information_circle_outline,
+                      ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    IconButton(
+                      style: IconButton.styleFrom(
+                        padding: const EdgeInsets.all(
+                          15,
+                        ),
+                      ),
+                      onPressed: () {},
+                      icon: const Icon(
+                        IconlyLight.edit,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Stack(
                       children: [
-                        Flexible(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClipOval(
-                                child: CachedNetworkImage(
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(user!.uid)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
                                   height: 130,
-                                  imageUrl:
-                                      'https://scontent.fcai11-1.fna.fbcdn.net/v/t39.30808-6/436306492_361233060274490_1043539174030441953_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHkVR2me_KYPkhluHlBDq0TkwOqR5U00w6TA6pHlTTTDt4sApYyIeLvABHaUHAg1lE2-I6k4RlknwJSCh8qp7fk&_nc_ohc=46Wp8QVHM1gQ7kNvgFjjf9R&_nc_ht=scontent.fcai11-1.fna&oh=00_AYAAss5qJzRI5JM8_0y2M7MSDMcyJf1swM3hmT1bksnCGA&oe=66467530',
-                                  placeholder: (context, url) {
-                                    return const AspectRatio(
-                                      aspectRatio: 1,
-                                      child: ShimmerEffect(),
-                                    );
-                                  },
-                                  errorWidget: (context, url, error) {
-                                    return Image.asset(AppAssets.unKnownUser);
-                                  },
+                                  child: AspectRatio(
+                                    aspectRatio: 1,
+                                    child: ClipOval(
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        imageUrl:
+                                            snapshot.data!.get('userImage'),
+                                        placeholder: (context, url) {
+                                          return const AspectRatio(
+                                            aspectRatio: 1,
+                                            child: ShimmerEffect(),
+                                          );
+                                        },
+                                        errorWidget: (context, url, error) {
+                                          return Image.asset(
+                                              AppAssets.unKnownUser);
+                                        },
+                                      ),
+                                    ),
+                                  ),
                                 ),
+                              );
+                            } else if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Text('Waiting');
+                            } else if (snapshot.hasError) {
+                              return const Text('error');
+                            } else {
+                              return Text(
+                                snapshot.data.toString(),
+                              );
+                            }
+                          },
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 55,
+                          child: InkWell(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    const EditProfileImageWidget(),
+                              );
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                color: BlocProvider.of<ThemeCubit>(context)
+                                        .themeMode
+                                    ? AppColors.navBarDarkModeColor
+                                    : AppColors.navBarLightModeColor,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: const Icon(
+                                FontAwesomeIcons.plus,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
-                        Text(
-                          state.userModel.userName,
-                          style: AppStyles.styleSemiBold19,
-                        ),
-                        Text(
-                          state.userModel.email,
-                          style: AppStyles.styleRegular15
-                              .copyWith(color: Colors.grey),
-                        ),
                       ],
+                    ),
+                    StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(user!.uid)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                snapshot.data!.get('UserName'),
+                                style: AppStyles.styleSemiBold19,
+                              ),
+                              Text(
+                                snapshot.data!.get('Email'),
+                                style: AppStyles.styleRegular15
+                                    .copyWith(color: Colors.grey),
+                              ),
+                            ],
+                          );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Text('Waiting');
+                        } else if (snapshot.hasError) {
+                          return const Text('error');
+                        } else {
+                          return Text(
+                            snapshot.data.toString(),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),
-              ),
-            );
-          } else if (state is FetchUserDataFailur) {
-            return Text(state.errorMessage);
-          } else {
-            return SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.26,
-              child: const ShimmerEffect(),
-            );
-          }
-        });
+              ],
+            ),
+          ),
+        );
       },
     );
   }

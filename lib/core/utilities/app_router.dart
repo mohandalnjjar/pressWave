@@ -10,7 +10,6 @@ import 'package:pressWave/home/presentation/views/news_details_view.dart';
 import 'package:pressWave/home/presentation/views/root_view.dart';
 import 'package:pressWave/home/presentation/views/saved_view.dart';
 import 'package:pressWave/home/presentation/views/search_view.dart';
-import 'package:pressWave/home/presentation/views/user_profile_view.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -52,10 +51,6 @@ class AppRouter {
       GoRoute(
         path: RouterConstance.kMainViewRouter,
         builder: (context, state) => const MainView(),
-      ),
-      GoRoute(
-        path: RouterConstance.kUserProfileViewRouter,
-        builder: (context, state) => const UserProfileView(),
       ),
     ],
   );

@@ -60,7 +60,6 @@ class PressWave extends StatelessWidget {
             authRepoImpl: AuthRepoImpl(),
           ),
         ),
-     
       ],
       child: BlocConsumer<ThemeCubit, ThemeCubitState>(
         builder: (context, state) {

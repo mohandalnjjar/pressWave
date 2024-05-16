@@ -26,8 +26,10 @@ ThemeData appTheme({required bool isDark, required BuildContext context}) {
       backgroundColor:
           isDark ? AppColors.darkScaffoldColor : AppColors.lightScaffoldColor,
     ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Colors.blueGrey,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: isDark
+          ? AppColors.navBarDarkModeColor
+          : AppColors.navBarLightModeColor,
     ),
     drawerTheme: DrawerThemeData(
       backgroundColor:

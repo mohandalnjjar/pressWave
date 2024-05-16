@@ -273,9 +273,12 @@ class _SingUpViewBodyState extends State<SingUpViewBody> {
   }) async {
     User? user = FirebaseAuth.instance.currentUser;
     await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+      'userImage': '',
       'UserName': userName,
       'Email': email,
       'CreatedAt': Timestamp.now(),
+      'UserSavedNews': [],
+      'UserRecentlyReadNews': []
     });
   }
 }

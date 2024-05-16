@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/core/widgets/custom_app_bar.dart';
 import 'package:pressWave/core/widgets/news_shimmer_loading_effect.dart';
@@ -21,40 +22,40 @@ class HomeViewBody extends StatelessWidget {
         SliverToBoxAdapter(
           child: CustomAppbar(
             title: 'Discover',
-            imageUrl:
-                'https://images.pexels.com/photos/439405/pexels-photo-439405.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
             onpressed: () {
               Scaffold.of(context).openEndDrawer();
             },
           ),
         ),
         const SliverToBoxAdapter(
-          child: HorizontalCategoryList(),
-        ),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 10,
+          child: Padding(
+            padding: EdgeInsets.only(left: 10, bottom: 10, right: 10),
+            child: Row(
+              children: [
+                Text(
+                  'Top Head Lines',
+                  style: AppStyles.styleSemiBold24,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(
+                  Ionicons.newspaper,
+                  color: Colors.red,
+                )
+              ],
+            ),
           ),
         ),
         const SliverToBoxAdapter(
           child: TopHeadLinesWidget(),
         ),
-        // const SliverToBoxAdapter(
-        //   child: Padding(
-        //     padding: EdgeInsets.only(
-        //       left: 10,
-        //       bottom: 10,
-        //       top: 10,
-        //     ),
-        //     child: Text(
-        //       'Authors',
-        //       style: AppStyles.styleSemiBold24,
-        //     ),
-        //   ),
-        // ),
-        // SliverToBoxAdapter(
-        //   child: CategoryItem(),
-        // ),
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: HorizontalCategoryList(),
+          ),
+        ),
         const SliverToBoxAdapter(
           child: Row(
             children: [

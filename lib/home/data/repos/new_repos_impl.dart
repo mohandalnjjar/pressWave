@@ -76,15 +76,17 @@ class NewsRepoIpm extends NewsRepo {
     User? user = auth.currentUser;
 
     try {
-      final userDocs = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user!.uid)
-          .get();
+      final DocumentSnapshot<Map<String, dynamic>> userDocs =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user!.uid)
+              .get();
 
       UserModel userModel = UserModel(
         userName: userDocs.get('UserName'),
         email: userDocs.get('Email'),
         timestamp: userDocs.get('CreatedAt'),
+        userImage: userDocs.get('userImage'),
       );
 
       return right(userModel);
