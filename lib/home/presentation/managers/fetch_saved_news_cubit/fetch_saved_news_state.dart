@@ -13,4 +13,8 @@ final class FetchSavedNewsSuccessful extends FetchSavedNewsState {
   FetchSavedNewsSuccessful({required this.data});
 }
 
-final class FetchSavedNewsFailure extends FetchSavedNewsState {}
+final class FetchSavedNewsFailure extends FetchSavedNewsState {
+  final String message;
+
+  FetchSavedNewsFailure({required this.message});
+}
