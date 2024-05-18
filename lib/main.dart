@@ -10,6 +10,7 @@ import 'package:pressWave/core/functions/app_theme.dart';
 import 'package:pressWave/core/utilities/app_router.dart';
 import 'package:pressWave/firebase_options.dart';
 import 'package:pressWave/home/data/repos/new_repos_impl.dart';
+import 'package:pressWave/home/presentation/managers/fetch_saved_news_cubit/fetch_saved_news_cubit.dart';
 import 'package:pressWave/home/presentation/managers/get_news_cubit/news_cubit.dart';
 import 'package:pressWave/home/presentation/managers/top_headlines_cubit/to_head_lines_cubit.dart';
 import 'package:pressWave/theme/data/repositories/theme_repo_impl.dart';
@@ -33,6 +34,9 @@ class PressWave extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => FetchSavedNewsCubit()..fetchDataStream(),
+        ),
         BlocProvider(
           create: (context) => ThemeCubit(
             themeRepoImpl: ThemeRepoImpl(),

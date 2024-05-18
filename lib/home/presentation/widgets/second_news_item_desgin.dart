@@ -79,7 +79,7 @@ class SecondNewsItemDesgin extends StatelessWidget {
                     IconButton(
                       onPressed: () async {
                         await userDb.update({
-                          'UserSavedNews':11 FieldValue.arrayRemove([
+                          'UserSavedNews': FieldValue.arrayRemove([
                             {
                               'author': newsModel.author,
                               'title': newsModel.title,
