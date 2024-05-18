@@ -22,7 +22,8 @@ class NewsDetailsView extends StatelessWidget {
           IconButton(
             onPressed: () async {
               try {
-                await saveNewOnfireStore(newsModel: newsModel);
+                await saveNewOnfireStore(
+                    newsModel: newsModel, context: context);
               } catch (e) {
                 showedScaffoldMessage(
                   context: context,

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
 
-Future<void> saveNewOnfireStore({required NewsModel newsModel}) async {
+Future<void> saveNewOnfireStore(
+    {required NewsModel newsModel, required BuildContext context}) async {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final User? user = auth.currentUser;
   final userDb = FirebaseFirestore.instance.collection('users').doc(user!.uid);

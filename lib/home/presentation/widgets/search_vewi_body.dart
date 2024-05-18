@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:pressWave/core/widgets/news_shimmer_loading_effect.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
 import 'package:pressWave/home/presentation/managers/get_news_cubit/news_cubit.dart';
@@ -58,6 +61,16 @@ class _SearchViewBodyState extends State<SearchViewBody>
                 });
               },
               hint: 'Search Now !?',
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _controller.clear();
+                    });
+                  },
+                  icon: const Icon(
+                    FontAwesomeIcons.xmark,
+                    color: Colors.grey,
+                  )),
             ),
           ),
           const SliverToBoxAdapter(
