@@ -20,6 +20,7 @@ Future<void> saveNewOnfireStore(
             'urlToImage': newsModel.urlToImage,
             'publishedAt': newsModel.publishedAt,
             'content': newsModel.content,
+            'SavedAt': DateTime.now()
           },
         ],
       )

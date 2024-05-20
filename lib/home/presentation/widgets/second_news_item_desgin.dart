@@ -76,24 +76,24 @@ class SecondNewsItemDesgin extends StatelessWidget {
                       height: 23,
                     ),
                     const Spacer(),
-                    IconButton(
-                      onPressed: () async {
-                        await userDb.update({
-                          'UserSavedNews': FieldValue.arrayRemove([
-                            {
-                              'author': newsModel.author,
-                              'title': newsModel.title,
-                              'description': newsModel.description,
-                              'url': newsModel.url,
-                              'urlToImage': newsModel.urlToImage,
-                              'publishedAt': newsModel.publishedAt,
-                              'content': newsModel.content,
-                            }
-                          ]),
-                        });
-                      },
-                      icon: const Icon(Icons.remove_circle),
-                    ),
+                    // IconButton(
+                    //   onPressed: () async {
+                    //     await userDb.update({
+                    //       'UserSavedNews': FieldValue.arrayRemove([
+                    //         {
+                    //           'author': newsModel.author,
+                    //           'title': newsModel.title,
+                    //           'description': newsModel.description,
+                    //           'url': newsModel.url,
+                    //           'urlToImage': newsModel.urlToImage,
+                    //           'publishedAt': newsModel.publishedAt,
+                    //           'content': newsModel.content,
+                    //         }
+                    //       ]),
+                    //     });
+                    //   },
+                    //   icon: const Icon(Icons.remove_circle),
+                    // ),
                   ],
                 ),
               ),
