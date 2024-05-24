@@ -23,6 +23,7 @@ class SavedNewsListView extends StatelessWidget {
               urlToImage: state.data.get('UserSavedNews')[index]['urlToImage'],
               publishedAt: DateTime.now(),
               content: state.data.get('UserSavedNews')[index]['content'],
+              newsId: state.data.get('UserSavedNews')[index]['newsId'],
             ),
           )),
     );

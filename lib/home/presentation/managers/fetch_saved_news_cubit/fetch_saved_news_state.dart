@@ -9,8 +9,9 @@ final class FetchSavedNewsLoading extends FetchSavedNewsState {}
 
 final class FetchSavedNewsSuccessful extends FetchSavedNewsState {
   final DocumentSnapshot<Map<String, dynamic>> data;
-
-  FetchSavedNewsSuccessful({required this.data});
+  FetchSavedNewsSuccessful({
+    required this.data,
+  });
 }
 
 final class FetchSavedNewsFailure extends FetchSavedNewsState {

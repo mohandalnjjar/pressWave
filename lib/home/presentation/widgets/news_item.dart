@@ -18,8 +18,19 @@ class NewsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await GoRouter.of(context)
-            .push(RouterConstance.kNewsDetailsViewRouter, extra: newsModel);
+        await GoRouter.of(context).push(
+          RouterConstance.kNewsDetailsViewRouter,
+          extra: NewsModel(
+            author: newsModel.author,
+            title: newsModel.title,
+            description: newsModel.description,
+            url: newsModel.url,
+            urlToImage: newsModel.urlToImage,
+            publishedAt: newsModel.publishedAt,
+            content: newsModel.content,
+            newsId: newsModel.newsId,
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),

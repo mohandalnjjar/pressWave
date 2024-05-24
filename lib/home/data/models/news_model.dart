@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 class NewsModel {
   final String? author;
   final String title;
@@ -6,8 +8,10 @@ class NewsModel {
   final String? urlToImage;
   final DateTime publishedAt;
   final String? content;
+  final String? newsId;
 
   NewsModel({
+    required this.newsId,
     required this.author,
     required this.title,
     required this.description,
@@ -26,6 +30,7 @@ class NewsModel {
       urlToImage: json['urlToImage'],
       publishedAt: DateTime.parse(json['publishedAt']),
       content: json['content'],
+      newsId: const Uuid().v4(),
     );
   }
 }

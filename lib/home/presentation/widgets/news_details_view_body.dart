@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/core/widgets/shimmer_effect.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
