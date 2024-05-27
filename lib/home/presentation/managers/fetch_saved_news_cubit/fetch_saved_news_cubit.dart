@@ -9,28 +9,36 @@ part 'fetch_saved_news_state.dart';
 class FetchSavedNewsCubit extends Cubit<FetchSavedNewsState> {
   FetchSavedNewsCubit() : super(FetchSavedNewsInitial());
 
-  void fetchDataStream() {
+  void fetchDataStream() async {
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     emit(
       FetchSavedNewsLoading(),
     );
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .snapshots()
-        .listen((data) {
-     
+    try {
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .get();
+
+      List<NewsModel> savedData = [];
+
+      for (var item in documentSnapshot.get('UserSavedNews')) {
+        savedData.add(
+          NewsModel.fromFireBase(item),
+        );
+      }
+
       emit(
-        FetchSavedNewsSuccessful(data:data),
+        FetchSavedNewsSuccessful(savedData: savedData),
       );
-    }, onError: (error) {
+    } catch (e) {
       emit(
         FetchSavedNewsFailure(
-          message: error.toString(),
+          message: e.toString(),
         ),
       );
-    });
+    }
   }
 }

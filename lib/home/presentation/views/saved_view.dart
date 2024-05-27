@@ -31,7 +31,7 @@ class _SavedViewState extends State<SavedView>
           BlocBuilder<FetchSavedNewsCubit, FetchSavedNewsState>(
             builder: (context, state) {
               if (state is FetchSavedNewsSuccessful) {
-                if (state.data.get('UserSavedNews').isNotEmpty) {
+                if (state.savedData.isNotEmpty) {
                   return IconButton(
                     onPressed: () async {
                       final auth = FirebaseAuth.instance;

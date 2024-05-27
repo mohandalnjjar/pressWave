@@ -1,4 +1,4 @@
-import 'package:uuid/uuid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewsModel {
   final String? author;
@@ -6,12 +6,10 @@ class NewsModel {
   final String? description;
   final String? url;
   final String? urlToImage;
-  final DateTime publishedAt;
+  final Timestamp publishedAt;
   final String? content;
-  final String? newsId;
 
   NewsModel({
-    required this.newsId,
     required this.author,
     required this.title,
     required this.description,
@@ -21,6 +19,18 @@ class NewsModel {
     required this.content,
   });
 
+  factory NewsModel.fromFireBase(item) {
+    return NewsModel(
+      author: item['author'],
+      title: item['title'],
+      description: item['description'],
+      url: item['url'],
+      urlToImage: item['urlToImage'],
+      publishedAt: item['publishedAt'],
+      content: item['content'],
+    );
+  }
+
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
       author: json['author'],
@@ -28,9 +38,8 @@ class NewsModel {
       description: json['description'],
       url: json['url'],
       urlToImage: json['urlToImage'],
-      publishedAt: DateTime.parse(json['publishedAt']),
+      publishedAt: Timestamp.fromDate(json['publishedAt']),
       content: json['content'],
-      newsId: const Uuid().v4(),
     );
   }
 }

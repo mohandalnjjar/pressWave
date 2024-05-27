@@ -28,7 +28,6 @@ class NewsItem extends StatelessWidget {
             urlToImage: newsModel.urlToImage,
             publishedAt: newsModel.publishedAt,
             content: newsModel.content,
-            newsId: newsModel.newsId,
           ),
         );
       },
@@ -85,7 +84,7 @@ class NewsItem extends StatelessWidget {
                         ),
                       const Spacer(),
                       Text(
-                        '${newsModel.publishedAt.year}-${newsModel.publishedAt.month}-${newsModel.publishedAt.day}',
+                        '${newsModel.publishedAt.toDate().year}-${newsModel.publishedAt.toDate().month}-${newsModel.publishedAt.toDate().day}',
                         style: AppStyles.styleRegular14,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

@@ -24,7 +24,7 @@ class NewsDetailsView extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () async {
-                  await saveNewOnfireStore(
+                  saveNewOnfireStore(
                     newsModel: newsModel,
                   );
                 },
