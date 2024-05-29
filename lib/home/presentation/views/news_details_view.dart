@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconly/iconly.dart';
+import 'package:pressWave/core/functions/check_itmes_in_list.dart';
 import 'package:pressWave/core/utilities/services/save_news_to_fire_store.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
@@ -8,7 +8,10 @@ import 'package:pressWave/home/presentation/managers/fetch_saved_news_cubit/fetc
 import 'package:pressWave/home/presentation/widgets/news_details_view_body.dart';
 
 class NewsDetailsView extends StatelessWidget {
-  const NewsDetailsView({super.key, required this.newsModel});
+  const NewsDetailsView({
+    super.key,
+    required this.newsModel,
+  });
   final NewsModel newsModel;
 
   @override
@@ -28,8 +31,15 @@ class NewsDetailsView extends StatelessWidget {
                     newsModel: newsModel,
                   );
                 },
-                icon: const Icon(
-                  IconlyLight.bookmark,
+                icon: Icon(
+                  checkListItmes(
+                    list: state is FetchSavedNewsSuccessful
+                        ? state.data.get('UserSavedNews')
+                        : [],
+                    newsModel: newsModel,
+                  )
+                      ? Icons.delete
+                      : Icons.book,
                 ),
               ),
             ],

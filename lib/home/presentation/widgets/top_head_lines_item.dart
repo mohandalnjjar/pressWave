@@ -71,7 +71,7 @@ class TopHeadLines extends StatelessWidget {
                     maxLines: 1,
                   ),
                   Text(
-                    '${newsModel.publishedAt.toDate().year}-${newsModel.publishedAt.toDate().month}-${newsModel.publishedAt.toDate().day}',
+                    '',
                     style:
                         AppStyles.styleRegular16.copyWith(color: Colors.white),
                     maxLines: 1,

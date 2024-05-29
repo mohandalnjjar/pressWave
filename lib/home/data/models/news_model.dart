@@ -1,12 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class NewsModel {
   final String? author;
   final String title;
   final String? description;
   final String? url;
   final String? urlToImage;
-  final Timestamp publishedAt;
+  // final DateTime publishedAt;
   final String? content;
 
   NewsModel({
@@ -15,7 +13,7 @@ class NewsModel {
     required this.description,
     required this.url,
     required this.urlToImage,
-    required this.publishedAt,
+    // required this.publishedAt,
     required this.content,
   });
 
@@ -26,11 +24,10 @@ class NewsModel {
       description: item['description'],
       url: item['url'],
       urlToImage: item['urlToImage'],
-      publishedAt: item['publishedAt'],
+      // publishedAt: DateTime.now(),
       content: item['content'],
     );
   }
-
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
       author: json['author'],
@@ -38,7 +35,7 @@ class NewsModel {
       description: json['description'],
       url: json['url'],
       urlToImage: json['urlToImage'],
-      publishedAt: Timestamp.fromDate(json['publishedAt']),
+      // publishedAt: DateTime.now(),
       content: json['content'],
     );
   }

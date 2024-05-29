@@ -74,7 +74,7 @@ class NewsDetailsViewBody extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    'published at :${newsModel.publishedAt.toDate().year}-${newsModel.publishedAt.toDate().month}-${newsModel.publishedAt.toDate().day}',
+                    '',
                     style:
                         AppStyles.styleRegular18.copyWith(color: Colors.grey),
                     maxLines: 3,

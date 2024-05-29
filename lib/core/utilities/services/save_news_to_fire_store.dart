@@ -16,7 +16,7 @@ Future<void> saveNewOnfireStore({required NewsModel newsModel}) async {
             'description': newsModel.description,
             'url': newsModel.url,
             'urlToImage': newsModel.urlToImage,
-            'publishedAt': newsModel.publishedAt,
+            // 'publishedAt': newsModel.publishedAt,
             'content': newsModel.content,
           },
         ],

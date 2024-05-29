@@ -9,20 +9,20 @@ class SavedNewsListView extends StatelessWidget {
     required this.state,
   });
   final FetchSavedNewsSuccessful state;
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: state.savedData.length,
+      itemCount: state.data.get('UserSavedNews').length,
       itemBuilder: ((context, index) => SecondNewsItemDesgin(
             newsModel: NewsModel(
-              author: state.savedData[index].author,
-              title: state.savedData[index].title,
-              description: state.savedData[index].description,
-              url: state.savedData[index].url,
-              urlToImage: state.savedData[index].url,
-              publishedAt: state.savedData[index].publishedAt,
-              content: state.savedData[index].content,
+              author: state.data.get('UserSavedNews')[index]['author'],
+              title: state.data.get('UserSavedNews')[index]['title'],
+              description: state.data.get('UserSavedNews')[index]
+                  ['description'],
+              url: state.data.get('UserSavedNews')[index]['url'],
+              urlToImage: state.data.get('UserSavedNews')[index]['urlToImage'],
+              // publishedAt: DateTime.now(),
+              content: state.data.get('UserSavedNews')[index]['content'],
             ),
           )),
     );

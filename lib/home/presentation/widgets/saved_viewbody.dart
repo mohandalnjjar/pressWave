@@ -16,7 +16,7 @@ class SavedViewbody extends StatelessWidget {
         if (state is FetchSavedNewsLoading) {
           return const SavedNewShimmerLoadingEffectListView();
         } else if (state is FetchSavedNewsSuccessful) {
-          if (state.savedData.isNotEmpty) {
+          if (state.data.get('UserSavedNews').isNotEmpty) {
             return SavedNewsListView(
               state: state,
             );

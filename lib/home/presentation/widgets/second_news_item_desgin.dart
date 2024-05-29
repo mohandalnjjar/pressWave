@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pressWave/core/utilities/constance/app_router_constance.dart';
+import 'package:pressWave/core/utilities/services/reomve_itme_from_firenase.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/core/widgets/shimmer_effect.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
@@ -17,10 +18,7 @@ class SecondNewsItemDesgin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = auth.currentUser;
-    final userDb =
-        FirebaseFirestore.instance.collection('users').doc(user!.uid);
+   
     return GestureDetector(
       onTap: () async {
         await GoRouter.of(context)
@@ -76,24 +74,12 @@ class SecondNewsItemDesgin extends StatelessWidget {
                       height: 23,
                     ),
                     const Spacer(),
-                    // IconButton(
-                    //   onPressed: () async {
-                    //     await userDb.update({
-                    //       'UserSavedNews': FieldValue.arrayRemove([
-                    //         {
-                    //           'author': newsModel.author,
-                    //           'title': newsModel.title,
-                    //           'description': newsModel.description,
-                    //           'url': newsModel.url,
-                    //           'urlToImage': newsModel.urlToImage,
-                    //           'publishedAt': newsModel.publishedAt,
-                    //           'content': newsModel.content,
-                    //         }
-                    //       ]),
-                    //     });
-                    //   },
-                    //   icon: const Icon(Icons.remove_circle),
-                    // ),
+                    IconButton(
+                      onPressed: () async {
+                        await reomveItmeFromFirebase( newsModel);
+                      },
+                      icon: const Icon(Icons.checklist),
+                    ),
                   ],
                 ),
               ),
