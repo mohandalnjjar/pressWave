@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pressWave/core/utilities/constance/app_router_constance.dart';
@@ -18,7 +16,6 @@ class SecondNewsItemDesgin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return GestureDetector(
       onTap: () async {
         await GoRouter.of(context)
@@ -31,6 +28,7 @@ class SecondNewsItemDesgin extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
@@ -76,7 +74,7 @@ class SecondNewsItemDesgin extends StatelessWidget {
                     const Spacer(),
                     IconButton(
                       onPressed: () async {
-                        await reomveItmeFromFirebase( newsModel);
+                        await reomveItmeFromFirebase(newsModel);
                       },
                       icon: const Icon(Icons.checklist),
                     ),

@@ -1,29 +1,33 @@
 import 'package:bloc/bloc.dart';
-import 'package:pressWave/home/data/models/user_model.dart';
-import 'package:pressWave/home/data/repos/new_repos_impl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'fetch_user_data_state.dart';
 
 class FetchUserDataCubit extends Cubit<FetchUserDataState> {
-  FetchUserDataCubit({required this.newsRepoIpm})
-      : super(FetchUserDataInitial());
-  final NewsRepoIpm newsRepoIpm;
+  FetchUserDataCubit() : super(FetchUserDataInitial());
 
   Future<void> fetchUserDataMethod() async {
+    final auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
     emit(
       FetchUserDataLoading(),
     );
-    var result = await newsRepoIpm.fetchUserData();
 
-    result.fold(
-      (failure) => emit(
-        FetchUserDataFailur(errorMessage: failure.errorMessage),
-      ),
-      (userModel) => emit(
-        FetchUserDataSuccessful(
-          userModel: userModel,
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .snapshots()
+        .listen((data) {
+      emit(
+        FetchUserDataSuccessful(data: data),
+      );
+    }, onError: (error) {
+      emit(
+        FetchUserDataFailur(
+          errorMessage: error.toString(),
         ),
-      ),
-    );
+      );
+    });
   }
 }

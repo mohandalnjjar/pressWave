@@ -7,7 +7,7 @@ part 'fetch_saved_news_state.dart';
 class FetchSavedNewsCubit extends Cubit<FetchSavedNewsState> {
   FetchSavedNewsCubit() : super(FetchSavedNewsInitial());
 
-  void fetchDataStream() {
+  void fetchSavedDataStream() {
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     emit(

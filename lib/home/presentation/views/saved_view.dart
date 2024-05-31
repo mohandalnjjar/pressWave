@@ -15,11 +15,8 @@ class SavedView extends StatefulWidget {
   State<SavedView> createState() => _SavedViewState();
 }
 
-class _SavedViewState extends State<SavedView>
-    with AutomaticKeepAliveClientMixin<SavedView> {
+class _SavedViewState extends State<SavedView> {
   @override
-  bool get wantKeepAlive => true;
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

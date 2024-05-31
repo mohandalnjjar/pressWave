@@ -60,6 +60,7 @@ class Gnav extends StatelessWidget {
                     icon: IconlyLight.bookmark,
                     iconSize: 25,
                     text: 'Saved',
+                  
                     padding: EdgeInsets.all(13),
                   ),
                 ]),

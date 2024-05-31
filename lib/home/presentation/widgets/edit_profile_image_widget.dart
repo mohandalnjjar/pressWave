@@ -1,17 +1,17 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:pressWave/core/functions/showed_scaffold_message.dart';
 import 'package:pressWave/core/utilities/app_assets.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/core/widgets/shimmer_effect.dart';
+import 'package:pressWave/home/presentation/managers/update_user_image_cubit/update_user_image_cubit_cubit.dart';
+import 'package:pressWave/home/presentation/managers/fetch_user_data_cubit/fetch_user_data_cubit.dart';
 import 'package:pressWave/home/presentation/widgets/icon_with_undeline_text.dart';
 
 class EditProfileImageWidget extends StatefulWidget {
@@ -30,11 +30,7 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
     User? user = firebaseAuth.currentUser;
-    final ref = FirebaseStorage.instance.ref().child('UserImages').child(
-          '${user!.email}.profileImage',
-        );
-    ImagePicker picker = ImagePicker();
-    XFile? file;
+
     return AlertDialog(
       contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       shape: const RoundedRectangleBorder(
@@ -48,13 +44,9 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('users')
-                    .doc(user!.uid)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+              BlocBuilder<FetchUserDataCubit, FetchUserDataState>(
+                builder: (context, state) {
+                  if (state is FetchUserDataSuccessful) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -62,21 +54,18 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                         child: AspectRatio(
                           aspectRatio: 1,
                           child: ClipOval(
-                            child: ModalProgressHUD(
-                              inAsyncCall: isLoading,
-                              child: CachedNetworkImage(
-                                fit: BoxFit.cover,
-                                imageUrl: snapshot.data!.get('userImage'),
-                                placeholder: (context, url) {
-                                  return const AspectRatio(
-                                    aspectRatio: 1,
-                                    child: ShimmerEffect(),
-                                  );
-                                },
-                                errorWidget: (context, url, error) {
-                                  return Image.asset(AppAssets.unKnownUser);
-                                },
-                              ),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: state.data.get('userImage'),
+                              placeholder: (context, url) {
+                                return const AspectRatio(
+                                  aspectRatio: 1,
+                                  child: ShimmerEffect(),
+                                );
+                              },
+                              errorWidget: (context, url, error) {
+                                return Image.asset(AppAssets.unKnownUser);
+                              },
                             ),
                           ),
                         ),
@@ -84,10 +73,12 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                     );
                   } else {
                     return const SizedBox(
-                      height: 130,
+                      height: 42,
                       child: AspectRatio(
                         aspectRatio: 1,
-                        child: ShimmerEffect(),
+                        child: ClipOval(
+                          child: ShimmerEffect(),
+                        ),
                       ),
                     );
                   }
@@ -97,7 +88,7 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                 'Change profile image',
                 style: AppStyles.styleSemiBold18,
               ),
-            ],
+            ],   
           ),
           const SizedBox(
             height: 17,
@@ -109,59 +100,29 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                 iconData: IconlyLight.folder,
                 title: 'Studio',
                 onTap: () async {
-                  XFile? file =
-                      await picker.pickImage(source: ImageSource.gallery);
-                  setState(() {
-                    isLoading = true;
-                  });
-
-                  await ref.putFile(File(file!.path));
-
-                  await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(user!.uid)
-                      .update(
-                    {
-                      'userImage': await ref.getDownloadURL(),
-                    },
-                  );
-                  setState(() {
-                    isLoading = false;
-                    context.pop();
-                  });
+                  await BlocProvider.of<UpdateUserImageCubit>(context)
+                      .updateImageMethod(
+                          context: context, imageSource: ImageSource.gallery);
                 },
               ),
               IconWithUnderlineText(
                 iconData: IconlyLight.camera,
                 title: 'Camera',
                 onTap: () async {
-                  file = await picker.pickImage(source: ImageSource.camera);
-                  setState(() {
-                    isLoading = true;
-                  });
-                  await ref.putFile(File(file!.path));
-
-                  await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(user!.uid)
-                      .update(
-                    {
-                      'userImage': await ref.getDownloadURL(),
-                    },
-                  );
-                  setState(() {
-                    isLoading = false;
-                    context.pop();
-                  });
+                  await BlocProvider.of<UpdateUserImageCubit>(context)
+                      .updateImageMethod(
+                          context: context, imageSource: ImageSource.camera);
                 },
               ),
               IconWithUnderlineText(
                 iconData: IconlyLight.delete,
                 title: 'Remove',
                 onTap: () async {
-                  setState(() {
-                    isLoading = true;
-                  });
+                  context.pop();
+
+                  showedScaffoldMessage(
+                      context: context, message: 'there is no image ');
+
                   await FirebaseFirestore.instance
                       .collection('users')
                       .doc(user!.uid)
@@ -170,10 +131,6 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                       'userImage': '',
                     },
                   );
-                  setState(() {
-                    isLoading = false;
-                    context.pop();
-                  });
                 },
               ),
             ],

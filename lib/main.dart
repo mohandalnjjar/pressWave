@@ -9,8 +9,10 @@ import 'package:pressWave/auth/presentation/managers/signup/sign_up_cubit.dart';
 import 'package:pressWave/core/functions/app_theme.dart';
 import 'package:pressWave/core/utilities/app_router.dart';
 import 'package:pressWave/firebase_options.dart';
-import 'package:pressWave/home/data/repos/new_repos_impl.dart';
+import 'package:pressWave/home/data/repos/home_repos_impl.dart';
+import 'package:pressWave/home/presentation/managers/update_user_image_cubit/update_user_image_cubit_cubit.dart';
 import 'package:pressWave/home/presentation/managers/fetch_saved_news_cubit/fetch_saved_news_cubit.dart';
+import 'package:pressWave/home/presentation/managers/fetch_user_data_cubit/fetch_user_data_cubit.dart';
 import 'package:pressWave/home/presentation/managers/get_news_cubit/news_cubit.dart';
 import 'package:pressWave/home/presentation/managers/top_headlines_cubit/to_head_lines_cubit.dart';
 import 'package:pressWave/theme/data/repositories/theme_repo_impl.dart';
@@ -35,7 +37,15 @@ class PressWave extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => FetchSavedNewsCubit()..fetchDataStream(),
+          create: (context) => UpdateUserImageCubit(
+            HomeRepoIpm(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => FetchUserDataCubit()..fetchUserDataMethod(),
+        ),
+        BlocProvider(
+          create: (context) => FetchSavedNewsCubit()..fetchSavedDataStream(),
         ),
         BlocProvider(
           create: (context) => ThemeCubit(
@@ -44,12 +54,12 @@ class PressWave extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ToHeadLinesCubit(
-            newsRepoIpm: NewsRepoIpm(),
+            newsRepoIpm: HomeRepoIpm(),
           )..fetchTops(),
         ),
         BlocProvider(
           create: (context) => NewsCubit(
-            newsRepoIpm: NewsRepoIpm(),
+            newsRepoIpm: HomeRepoIpm(),
           )..fetchNews(
               category: 'all',
             ),

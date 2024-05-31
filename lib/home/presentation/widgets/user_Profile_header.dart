@@ -1,15 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:pressWave/core/functions/showed_scaffold_message.dart';
 import 'package:pressWave/core/utilities/app_assets.dart';
 import 'package:pressWave/core/utilities/constance/app_colors.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/core/widgets/shimmer_effect.dart';
+import 'package:pressWave/home/presentation/managers/update_user_image_cubit/update_user_image_cubit_cubit.dart';
+import 'package:pressWave/home/presentation/managers/fetch_user_data_cubit/fetch_user_data_cubit.dart';
 import 'package:pressWave/home/presentation/widgets/edit_profile_image_widget.dart';
 import 'package:pressWave/theme/presentation/managers/theme_cubit/theme_cubit_cubit.dart';
 
@@ -40,38 +42,16 @@ class UserProfileHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  children: [
-                    IconButton(
-                      style: IconButton.styleFrom(
-                        padding: const EdgeInsets.all(
-                          15,
-                        ),
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const AlertDialog(
-                            title: Text(''),
-                          ),
-                        );
-                      },
-                      icon: const Icon(
-                        Ionicons.information_circle_outline,
-                      ),
+                IconButton(
+                  style: IconButton.styleFrom(
+                    padding: const EdgeInsets.all(
+                      15,
                     ),
-                    IconButton(
-                      style: IconButton.styleFrom(
-                        padding: const EdgeInsets.all(
-                          15,
-                        ),
-                      ),
-                      onPressed: () {},
-                      icon: const Icon(
-                        IconlyLight.edit,
-                      ),
-                    ),
-                  ],
+                  ),
+                  onPressed: () {},
+                  icon: const Icon(
+                    IconlyLight.edit,
+                  ),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -79,13 +59,9 @@ class UserProfileHeader extends StatelessWidget {
                   children: [
                     Stack(
                       children: [
-                        StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(user!.uid)
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
+                        BlocBuilder<FetchUserDataCubit, FetchUserDataState>(
+                          builder: (context, state) {
+                            if (state is FetchUserDataSuccessful) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: SizedBox(
@@ -95,8 +71,7 @@ class UserProfileHeader extends StatelessWidget {
                                     child: ClipOval(
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
-                                        imageUrl:
-                                            snapshot.data!.get('userImage'),
+                                        imageUrl: state.data.get('userImage'),
                                         placeholder: (context, url) {
                                           return const AspectRatio(
                                             aspectRatio: 1,
@@ -112,14 +87,15 @@ class UserProfileHeader extends StatelessWidget {
                                   ),
                                 ),
                               );
-                            } else if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Text('Waiting');
-                            } else if (snapshot.hasError) {
-                              return const Text('error');
                             } else {
-                              return Text(
-                                snapshot.data.toString(),
+                              return const SizedBox(
+                                height: 130,
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: ClipOval(
+                                    child: ShimmerEffect(),
+                                  ),
+                                ),
                               );
                             }
                           },
@@ -131,8 +107,28 @@ class UserProfileHeader extends StatelessWidget {
                             onTap: () {
                               showDialog(
                                 context: context,
-                                builder: (context) =>
-                                    const EditProfileImageWidget(),
+                                builder: (context) => BlocConsumer<
+                                    UpdateUserImageCubit,
+                                    UpdateUserImageCubitState>(
+                                  listener: (context, state) {
+                                    if (state is UpdateUserImageCubitSuccess) {
+                                      context.pop();
+                                      showedScaffoldMessage(
+                                          context: context,
+                                          message: 'Image changed');
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state is UpdateUserImageCubitLoading) {
+                                      return const AbsorbPointer(
+                                        child: Center(
+                                            child: CircularProgressIndicator()),
+                                      );
+                                    } else {
+                                      return const EditProfileImageWidget();
+                                    }
+                                  },
+                                ),
                               );
                             },
                             child: Container(
@@ -154,36 +150,25 @@ class UserProfileHeader extends StatelessWidget {
                         ),
                       ],
                     ),
-                    StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(user!.uid)
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
+                    BlocBuilder<FetchUserDataCubit, FetchUserDataState>(
+                      builder: (context, state) {
+                        if (state is FetchUserDataSuccessful) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                snapshot.data!.get('UserName'),
+                                state.data.get('UserName'),
                                 style: AppStyles.styleSemiBold19,
                               ),
                               Text(
-                                snapshot.data!.get('Email'),
+                                state.data.get('Email'),
                                 style: AppStyles.styleRegular15
                                     .copyWith(color: Colors.grey),
                               ),
                             ],
                           );
-                        } else if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Text('Waiting');
-                        } else if (snapshot.hasError) {
-                          return const Text('error');
                         } else {
-                          return Text(
-                            snapshot.data.toString(),
-                          );
+                          return const Text('Loading');
                         }
                       },
                     ),

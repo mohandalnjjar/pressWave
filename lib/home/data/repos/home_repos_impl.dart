@@ -1,14 +1,19 @@
+import 'dart:ffi';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pressWave/core/errors/failuers.dart';
 import 'package:pressWave/core/utilities/services/api_service.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
-import 'package:pressWave/home/data/models/user_model.dart';
-import 'package:pressWave/home/data/repos/news_repository.dart';
+import 'package:pressWave/home/data/repos/home_repository.dart';
 
-class NewsRepoIpm extends NewsRepo {
+class HomeRepoIpm extends HomeRepo {
   @override
   Future<Either<Failure, List<NewsModel>>> fetchNews(
       {required String category}) async {
@@ -71,26 +76,31 @@ class NewsRepoIpm extends NewsRepo {
   }
 
   @override
-  Future<Either<Failure, UserModel>> fetchUserData() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user = auth.currentUser;
+  Future<Either<Failure, void>> updateUserImage(
+      {required BuildContext context, required ImageSource imageSource}) async {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    final User? user = firebaseAuth.currentUser;
 
     try {
-      final DocumentSnapshot<Map<String, dynamic>> userDocs =
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user!.uid)
-              .get();
+      final ref = FirebaseStorage.instance.ref().child('UserImages').child(
+            '${user!.email}.profileImage',
+          );
 
-      UserModel userModel = UserModel(
-        userName: userDocs.get('UserName'),
-        email: userDocs.get('Email'),
-        timestamp: userDocs.get('CreatedAt'),
-        userImage: userDocs.get('userImage'),
+      XFile? file = await ImagePicker().pickImage(
+        source: imageSource,
+        imageQuality: 50,
       );
 
-      return right(userModel);
-    } on FirebaseException catch (e) {
+      await ref.putFile(File(file!.path));
+
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).update(
+        {
+          'userImage': await ref.getDownloadURL(),
+        },
+      );
+
+      return right(null);
+    } catch (e) {
       return left(
         ServerFailure(
           errorMessage: e.toString(),

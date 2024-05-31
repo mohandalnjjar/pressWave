@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pressWave/core/functions/check_itmes_in_list.dart';
+import 'package:pressWave/core/utilities/services/reomve_itme_from_firenase.dart';
 import 'package:pressWave/core/utilities/services/save_news_to_fire_store.dart';
 import 'package:pressWave/core/utilities/styles.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
@@ -27,9 +28,16 @@ class NewsDetailsView extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () async {
-                  saveNewOnfireStore(
+                  checkListItmes(
+                    list: state is FetchSavedNewsSuccessful
+                        ? state.data.get('UserSavedNews')
+                        : [],
                     newsModel: newsModel,
-                  );
+                  )
+                      ? await reomveItmeFromFirebase(newsModel)
+                      : await saveNewOnfireStore(
+                          newsModel: newsModel,
+                        );
                 },
                 icon: Icon(
                   checkListItmes(
@@ -39,7 +47,7 @@ class NewsDetailsView extends StatelessWidget {
                     newsModel: newsModel,
                   )
                       ? Icons.delete
-                      : Icons.book,
+                      : Icons.bookmark,
                 ),
               ),
             ],

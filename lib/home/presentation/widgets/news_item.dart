@@ -83,7 +83,7 @@ class NewsItem extends StatelessWidget {
                           height: 23,
                         ),
                       const Spacer(),
-                      Text(
+                      const Text(
                         '',
                         style: AppStyles.styleRegular14,
                         maxLines: 1,
