@@ -4,7 +4,6 @@ import 'package:pressWave/auth/presentation/views/sign_up_view.dart';
 import 'package:pressWave/core/utilities/constance/app_router_constance.dart';
 import 'package:pressWave/core/utilities/main_view.dart';
 import 'package:pressWave/home/data/models/news_model.dart';
-import 'package:pressWave/home/presentation/views/Recently_viewed_view.dart';
 import 'package:pressWave/home/presentation/views/home_view.dart';
 import 'package:pressWave/home/presentation/views/news_details_view.dart';
 import 'package:pressWave/home/presentation/views/root_view.dart';
@@ -35,10 +34,6 @@ class AppRouter {
       GoRoute(
         path: RouterConstance.kSavedViewRouter,
         builder: (context, state) => const SavedView(),
-      ),
-      GoRoute(
-        path: RouterConstance.kReceltyViewedViewRouter,
-        builder: (context, state) => const ReceltyViewedView(),
       ),
       GoRoute(
         path: RouterConstance.kLoginViewRouter,

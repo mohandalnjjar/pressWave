@@ -1,6 +1,4 @@
-import 'dart:ffi';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -25,9 +23,11 @@ class HomeRepoIpm extends HomeRepo {
       List<NewsModel> newsData = [];
 
       for (var item in newsApiData['articles']) {
-        newsData.add(
-          NewsModel.fromJson(item),
-        );
+        if (item['title'] != "[Removed]") {
+          newsData.add(
+            NewsModel.fromJson(item),
+          );
+        }
       }
 
       return right(newsData);
@@ -54,9 +54,11 @@ class HomeRepoIpm extends HomeRepo {
       );
       List<NewsModel> newsData = [];
       for (var items in topHeadlinesData['articles']) {
-        newsData.add(
-          NewsModel.fromJson(items),
-        );
+        if (items['title'] != "[Removed]") {
+          newsData.add(
+            NewsModel.fromJson(items),
+          );
+        }
       }
 
       return right(newsData);

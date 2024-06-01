@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:pressWave/core/functions/showed_scaffold_message.dart';
 import 'package:pressWave/core/utilities/constance/app_router_constance.dart';
 import 'package:pressWave/core/utilities/styles.dart';
@@ -20,16 +19,15 @@ class HomeViewDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const UserProfileHeader(),
-          DrawerItem(
-            title: "Last Read",
-            icon: Ionicons.reader_outline,
-            onPressed: () async {
-              await GoRouter.of(context).push(
-                RouterConstance.kReceltyViewedViewRouter,
-              );
-            },
+          const Padding(
+            padding: EdgeInsets.all(15),
+            child: Text(
+              'Press Wave Theme',
+              style: AppStyles.styleSemiBold19,
+            ),
           ),
           BlocBuilder<ThemeCubit, ThemeCubitState>(
             builder: (context, state) {

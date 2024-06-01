@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pressWave/core/utilities/constance/app_router_constance.dart';
 import 'package:pressWave/core/utilities/services/reomve_itme_from_firenase.dart';
@@ -58,18 +59,21 @@ class SecondNewsItemDesgin extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
                   children: [
-                    Text(
-                      newsModel.author ?? 'Unknown Author',
-                      style: AppStyles.styleRegular15,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    Image.asset(
+                      'assets/images/verify.png',
+                      height: 23,
                     ),
                     const SizedBox(
                       width: 5,
                     ),
-                    Image.asset(
-                      'assets/images/verify.png',
-                      height: 23,
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width * .6,
+                      child: Text(
+                        newsModel.author ?? 'Unknown Author',
+                        style: AppStyles.styleRegular15,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     const Spacer(),
                     IconButton(
