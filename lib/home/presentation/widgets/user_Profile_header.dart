@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,6 +12,7 @@ import 'package:pressWave/core/widgets/shimmer_effect.dart';
 import 'package:pressWave/home/presentation/managers/update_user_image_cubit/update_user_image_cubit_cubit.dart';
 import 'package:pressWave/home/presentation/managers/fetch_user_data_cubit/fetch_user_data_cubit.dart';
 import 'package:pressWave/home/presentation/widgets/edit_profile_image_widget.dart';
+import 'package:pressWave/home/presentation/widgets/edit_user_name_widget.dart';
 import 'package:pressWave/theme/presentation/managers/theme_cubit/theme_cubit_cubit.dart';
 
 class UserProfileHeader extends StatelessWidget {
@@ -22,9 +22,6 @@ class UserProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    User? user = auth.currentUser;
-
     return BlocBuilder<ThemeCubit, ThemeCubitState>(
       builder: (context, state) {
         return Container(
@@ -48,7 +45,13 @@ class UserProfileHeader extends StatelessWidget {
                       15,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const EditUserNameWidget();
+                        });
+                  },
                   icon: const Icon(
                     IconlyLight.edit,
                   ),

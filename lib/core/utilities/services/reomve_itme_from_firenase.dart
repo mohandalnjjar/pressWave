@@ -17,6 +17,7 @@ Future<void> reomveItmeFromFirebase(NewsModel newsModel) async {
         'urlToImage': newsModel.urlToImage,
         'content': newsModel.content,
       }
+      
     ]),
   });
 }
