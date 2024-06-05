@@ -33,7 +33,7 @@ class CustomAppbar extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppStyles.styleSemiBold27,
+            style: AppStyles.styleSemiBold27(context),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(

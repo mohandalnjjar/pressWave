@@ -27,19 +27,19 @@ class HomeViewBody extends StatelessWidget {
             },
           ),
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.only(left: 10, bottom: 10, right: 10),
+            padding: const EdgeInsets.only(left: 10, bottom: 10, right: 10),
             child: Row(
               children: [
                 Text(
                   'Top Head Lines',
-                  style: AppStyles.styleSemiBold24,
+                  style: AppStyles.styleSemiBold24(context),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Icon(
+                const Icon(
                   Ionicons.newspaper,
                   color: Colors.red,
                 )
@@ -56,24 +56,24 @@ class HomeViewBody extends StatelessWidget {
             child: HorizontalCategoryList(),
           ),
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   left: 10,
                   bottom: 10,
                   top: 10,
                 ),
                 child: Text(
                   'News',
-                  style: AppStyles.styleSemiBold24,
+                  style: AppStyles.styleSemiBold24(context),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
-              Icon(
+              const Icon(
                 FontAwesomeIcons.newspaper,
               )
             ],

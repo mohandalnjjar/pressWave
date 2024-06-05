@@ -21,9 +21,9 @@ class NewsDetailsView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text(
+            title:  Text(
               'Details',
-              style: AppStyles.styleSemiBold27,
+              style: AppStyles.styleSemiBold27(context),
             ),
             actions: [
               IconButton(

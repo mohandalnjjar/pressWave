@@ -29,7 +29,7 @@ class InActiveHorizntalCategoryItem extends StatelessWidget {
       child: Center(
         child: Text(
           horizontalCategoryModel.title,
-          style: AppStyles.styleRegular15.copyWith(
+          style: AppStyles.styleRegular15(context).copyWith(
             color: BlocProvider.of<ThemeCubit>(context).themeMode
                 ? Colors.grey
                 : const Color.fromARGB(255, 44, 92, 82),

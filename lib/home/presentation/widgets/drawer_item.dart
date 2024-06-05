@@ -25,7 +25,7 @@ class DrawerItem extends StatelessWidget {
             ),
             Text(
               title,
-              style: AppStyles.styleRegular17,
+              style: AppStyles.styleRegular17(context),
             ),
           ],
         ),

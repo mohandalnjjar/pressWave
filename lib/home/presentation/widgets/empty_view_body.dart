@@ -34,14 +34,14 @@ class EmptyViewBody extends StatelessWidget {
         ),
         Text(
           title,
-          style: AppStyles.styleSemiBold24,
+          style: AppStyles.styleSemiBold24(context),
         ),
         const SizedBox(
           height: 10,
         ),
         Text(
           subTitle,
-          style: AppStyles.styleRegular17,
+          style: AppStyles.styleRegular17(context),
         ),
         const SizedBox(
           height: 15,

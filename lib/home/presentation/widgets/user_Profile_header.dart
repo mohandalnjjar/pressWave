@@ -156,19 +156,24 @@ class UserProfileHeader extends StatelessWidget {
                     BlocBuilder<FetchUserDataCubit, FetchUserDataState>(
                       builder: (context, state) {
                         if (state is FetchUserDataSuccessful) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                state.data.get('UserName'),
-                                style: AppStyles.styleSemiBold19,
+                          return Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    state.data.get('UserName'),
+                                    style: AppStyles.styleSemiBold19(context),
+                                  ),
+                                  Text(
+                                    state.data.get('Email'),
+                                    style: AppStyles.styleRegular15(context)
+                                        .copyWith(color: Colors.grey),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                state.data.get('Email'),
-                                style: AppStyles.styleRegular15
-                                    .copyWith(color: Colors.grey),
-                              ),
-                            ],
+                            ),
                           );
                         } else {
                           return const Text('Loading');

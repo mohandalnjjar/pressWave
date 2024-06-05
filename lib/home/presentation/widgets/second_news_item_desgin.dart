@@ -50,7 +50,7 @@ class SecondNewsItemDesgin extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                 child: Text(
                   newsModel.title,
-                  style: AppStyles.styleRegular17,
+                  style: AppStyles.styleRegular17(context),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -59,10 +59,11 @@ class SecondNewsItemDesgin extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
                   children: [
-                    Image.asset(
-                      'assets/images/verify.png',
-                      height: 23,
-                    ),
+                    if (newsModel.author != null)
+                      Image.asset(
+                        'assets/images/verify.png',
+                        height: 23,
+                      ),
                     const SizedBox(
                       width: 5,
                     ),
@@ -70,7 +71,7 @@ class SecondNewsItemDesgin extends StatelessWidget {
                       width: MediaQuery.sizeOf(context).width * .6,
                       child: Text(
                         newsModel.author ?? 'Unknown Author',
-                        style: AppStyles.styleRegular15,
+                        style: AppStyles.styleRegular15(context),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

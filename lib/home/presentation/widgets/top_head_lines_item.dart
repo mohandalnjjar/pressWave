@@ -59,13 +59,13 @@ class TopHeadLines extends StatelessWidget {
                   Text(
                     newsModel.title,
                     style:
-                        AppStyles.styleSemiBold21.copyWith(color: Colors.white),
+                        AppStyles.styleSemiBold21(context).copyWith(color: Colors.white),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     newsModel.author ?? 'Unknown Author',
-                    style: AppStyles.styleRegular18.copyWith(
+                    style: AppStyles.styleRegular18(context).copyWith(
                       color: Colors.white,
                     ),
                     maxLines: 1,
@@ -73,7 +73,7 @@ class TopHeadLines extends StatelessWidget {
                   Text(
                     '',
                     style:
-                        AppStyles.styleRegular16.copyWith(color: Colors.white),
+                        AppStyles.styleRegular16(context).copyWith(color: Colors.white),
                     maxLines: 1,
                   ),
                 ],

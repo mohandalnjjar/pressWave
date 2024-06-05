@@ -1,49 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:pressWave/core/functions/get_responsive_font_size.dart';
 
 abstract class AppStyles {
-  static const TextStyle styleSemiBold24 =
-      TextStyle(fontWeight: FontWeight.w600, fontSize: 24);
+  static TextStyle styleSemiBold24(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: getResponsizeFontSize(fontSize: 24, context: context),
+    );
+  }
 
-  static const TextStyle styleSemiBold16 =
-      TextStyle(fontWeight: FontWeight.w600, fontSize: 16);
+  static TextStyle styleSemiBold16(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: getResponsizeFontSize(fontSize: 16, context: context),
+    );
+  }
 
-  static const TextStyle styleSemiBold17 =
-      TextStyle(fontWeight: FontWeight.w500, fontSize: 16);
+  static TextStyle styleSemiBold17(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: getResponsizeFontSize(fontSize: 16, context: context),
+    );
+  }
 
-  static const TextStyle styleSemiBold21 =
-      TextStyle(fontWeight: FontWeight.w500, fontSize: 21);
+  static TextStyle styleSemiBold21(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: getResponsizeFontSize(fontSize: 21, context: context),
+    );
+  }
 
-  static const TextStyle styleSemiBold19 =
-      TextStyle(fontWeight: FontWeight.w500, fontSize: 19);
+  static TextStyle styleSemiBold19(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: getResponsizeFontSize(fontSize: 19, context: context),
+    );
+  }
 
-  static const TextStyle styleSemiBold18 =
-      TextStyle(fontWeight: FontWeight.w500, fontSize: 18);
+  static TextStyle styleSemiBold18(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: getResponsizeFontSize(fontSize: 18, context: context),
+    );
+  }
 
-  static const TextStyle styleSemiBold27 =
-      TextStyle(fontWeight: FontWeight.w600, fontSize: 27);
+  static TextStyle styleSemiBold27(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: getResponsizeFontSize(fontSize: 27, context: context),
+    );
+  }
 
-  static const TextStyle styleSemiBold41 =
-      TextStyle(fontWeight: FontWeight.w600, fontSize: 41);
+  static TextStyle styleSemiBold41(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: getResponsizeFontSize(fontSize: 41, context: context),
+    );
+  }
 
-  static const TextStyle styleRegular18 =
-      TextStyle(fontWeight: FontWeight.w400, fontSize: 18);
+  static TextStyle styleRegular18(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: getResponsizeFontSize(fontSize: 18, context: context),
+    );
+  }
 
-  static const TextStyle styleRegular23 =
-      TextStyle(fontWeight: FontWeight.w400, fontSize: 23);
+  static TextStyle styleRegular23(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: getResponsizeFontSize(fontSize: 23, context: context),
+    );
+  }
 
-  static const TextStyle styleRegular16 =
-      TextStyle(fontWeight: FontWeight.w400, fontSize: 16);
+  static TextStyle styleRegular16(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: getResponsizeFontSize(fontSize: 16, context: context),
+    );
+  }
 
-  static const TextStyle styleRegular17 =
-      TextStyle(fontWeight: FontWeight.w400, fontSize: 17);
-  static const TextStyle styleRegular15 =
-      TextStyle(fontWeight: FontWeight.w400, fontSize: 15);
+  static TextStyle styleRegular17(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: getResponsizeFontSize(fontSize: 17, context: context),
+    );
+  }
 
-  static const TextStyle styleBold =
-      TextStyle(fontWeight: FontWeight.w700, fontSize: 20);
+  static TextStyle styleRegular15(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: getResponsizeFontSize(fontSize: 15, context: context),
+    );
+  }
 
-  static const TextStyle styleRegular14 = TextStyle(
-    fontSize: 14,
-    color: Colors.grey,
-  );
+  static TextStyle styleBold(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w700,
+      fontSize: getResponsizeFontSize(fontSize: 20, context: context),
+    );
+  }
+
+  static TextStyle styleRegular14(BuildContext context) {
+    return TextStyle(
+      fontWeight: FontWeight.w700,
+      color: Colors.grey,
+      fontSize: getResponsizeFontSize(fontSize: 14, context: context),
+    );
+  }
 }

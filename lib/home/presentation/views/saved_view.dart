@@ -20,9 +20,9 @@ class _SavedViewState extends State<SavedView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title:  Text(
           "Saved news",
-          style: AppStyles.styleSemiBold27,
+          style: AppStyles.styleSemiBold27(context),
         ),
         actions: [
           BlocBuilder<FetchSavedNewsCubit, FetchSavedNewsState>(
@@ -44,8 +44,10 @@ class _SavedViewState extends State<SavedView> {
                           },
                         );
                       } catch (e) {
-                        showedScaffoldMessage(
-                            context: context, message: e.toString());
+                        if (context.mounted) {
+                          showedScaffoldMessage(
+                              context: context, message: e.toString());
+                        }
                       }
                     },
                     icon: const Icon(

@@ -23,7 +23,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showedScaffoldMessage(
           child: Center(
             child: Text(
               message,
-              style: AppStyles.styleRegular15.copyWith(color: Colors.white),
+              style: AppStyles.styleRegular15(context).copyWith(color: Colors.white),
             ),
           ),
         ),

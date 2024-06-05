@@ -22,11 +22,11 @@ class HomeViewDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const UserProfileHeader(),
-          const Padding(
-            padding: EdgeInsets.all(15),
+           Padding(
+            padding:const EdgeInsets.all(15),
             child: Text(
               'Press Wave Theme',
-              style: AppStyles.styleSemiBold19,
+              style: AppStyles.styleSemiBold19(context),
             ),
           ),
           BlocBuilder<ThemeCubit, ThemeCubitState>(
@@ -48,7 +48,7 @@ class HomeViewDrawer extends StatelessWidget {
                       BlocProvider.of<ThemeCubit>(context).themeMode
                           ? "Dark mode"
                           : "light mode",
-                      style: AppStyles.styleRegular17,
+                      style: AppStyles.styleRegular17(context),
                     ),
                   ],
                 ),
@@ -117,7 +117,7 @@ class HomeViewDrawer extends StatelessWidget {
                             },
                             child: Text(
                               'Yes, SignOut',
-                              style: AppStyles.styleRegular15
+                              style: AppStyles.styleRegular15(context)
                                   .copyWith(color: Colors.white),
                             ),
                           ),

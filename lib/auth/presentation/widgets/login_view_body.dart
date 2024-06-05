@@ -93,16 +93,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       'Login',
-                      style: AppStyles.styleSemiBold41,
+                      style: AppStyles.styleSemiBold41(context),
                     ),
                     const SizedBox(
                       height: 7,
                     ),
-                    const Text(
+                    Text(
                       'Enter your account details',
-                      style: AppStyles.styleRegular16,
+                      style: AppStyles.styleRegular16(context),
                     ),
                     const SizedBox(
                       height: 16,
@@ -152,7 +152,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     Text(
                       'Forgot password?',
                       style:
-                          AppStyles.styleRegular15.copyWith(color: Colors.grey),
+                          AppStyles.styleRegular15(context).copyWith(color: Colors.grey),
                     ),
                     const SizedBox(
                       height: 37,
@@ -182,7 +182,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       },
                       child: Text(
                         'Login',
-                        style: AppStyles.styleSemiBold18.copyWith(
+                        style: AppStyles.styleSemiBold18(context).copyWith(
                           fontSize: 16,
                           color: Colors.white,
                         ),
@@ -196,7 +196,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       children: [
                         Text(
                           'Don\'t have account ?!',
-                          style: AppStyles.styleRegular15
+                          style: AppStyles.styleRegular15(context)
                               .copyWith(color: Colors.grey),
                         ),
                         ElevatedButton(
@@ -215,7 +215,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           },
                           child: Text(
                             'Sign up',
-                            style: AppStyles.styleSemiBold18.copyWith(
+                            style: AppStyles.styleSemiBold18(context).copyWith(
                               fontSize: 16,
                             ),
                           ),

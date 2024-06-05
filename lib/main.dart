@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,10 @@ Future<void> main() async {
   );
 
   runApp(
-    const PressWave(),
+    DevicePreview(
+      enabled: true,
+      builder: (context) => const PressWave(),
+    ),
   );
 }
 
@@ -78,6 +82,8 @@ class PressWave extends StatelessWidget {
       child: BlocConsumer<ThemeCubit, ThemeCubitState>(
         builder: (context, state) {
           return MaterialApp.router(
+            locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
             title: 'Press Wave',
             debugShowCheckedModeBanner: false,
             routerConfig: AppRouter.router,

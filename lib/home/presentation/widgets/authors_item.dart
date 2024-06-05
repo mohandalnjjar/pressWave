@@ -26,9 +26,9 @@ class AuthorsItem extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        const Text(
+         Text(
           'BBC',
-          style: AppStyles.styleRegular14,
+          style: AppStyles.styleRegular14(context),
           maxLines: 2,
         ),
       ],

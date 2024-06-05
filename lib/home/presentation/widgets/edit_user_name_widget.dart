@@ -49,9 +49,9 @@ class _EditUserNameWidgetState extends State<EditUserNameWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+             Text(
               'Edit Your Name',
-              style: AppStyles.styleSemiBold18,
+              style: AppStyles.styleSemiBold18(context),
             ),
             SecondCustomTextFromField(
               controller: textEditingController,

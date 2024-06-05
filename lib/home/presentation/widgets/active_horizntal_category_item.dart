@@ -29,7 +29,7 @@ class ActiveHorizntalCategoryItem extends StatelessWidget {
       child: Center(
         child: Text(
           horizontalCategoryModel.title,
-          style: AppStyles.styleRegular15.copyWith(
+          style: AppStyles.styleRegular15(context).copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),

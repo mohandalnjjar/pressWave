@@ -18,9 +18,9 @@ class _SearchViewState extends State<SearchView> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title:  Text(
             "Explore",
-            style: AppStyles.styleSemiBold27,
+            style: AppStyles.styleSemiBold27(context),
           ),
         ),
         body: const SafeArea(

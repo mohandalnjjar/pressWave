@@ -29,7 +29,7 @@ class NewsDetailsViewBody extends StatelessWidget {
                   ),
                   Text(
                     newsModel.title,
-                    style: AppStyles.styleSemiBold24,
+                    style: AppStyles.styleSemiBold24(context),
                   ),
                   const SizedBox(
                     height: 17,
@@ -39,7 +39,7 @@ class NewsDetailsViewBody extends StatelessWidget {
                       Flexible(
                         child: Text(
                           'Author : ${newsModel.author ?? 'Unknown Author'}',
-                          style: AppStyles.styleSemiBold17,
+                          style: AppStyles.styleSemiBold17(context),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -76,16 +76,16 @@ class NewsDetailsViewBody extends StatelessWidget {
                   Text(
                     '',
                     style:
-                        AppStyles.styleRegular18.copyWith(color: Colors.grey),
+                        AppStyles.styleRegular18(context).copyWith(color: Colors.grey),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  const Text(
+                   Text(
                     'Description',
-                    style: AppStyles.styleSemiBold24,
+                    style: AppStyles.styleSemiBold24(context),
                   ),
                   const SizedBox(
                     height: 20,
@@ -93,14 +93,14 @@ class NewsDetailsViewBody extends StatelessWidget {
                   Text(
                     newsModel.description ??
                         'Sorry there is no description for this articles',
-                    style: AppStyles.styleRegular18,
+                    style: AppStyles.styleRegular18(context),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
+                   Text(
                     'Content',
-                    style: AppStyles.styleSemiBold24,
+                    style: AppStyles.styleSemiBold24(context),
                   ),
                   const SizedBox(
                     height: 20,
@@ -108,14 +108,14 @@ class NewsDetailsViewBody extends StatelessWidget {
                   Text(
                     newsModel.content ??
                         'Sorry there is no content for this articles',
-                    style: AppStyles.styleRegular18,
+                    style: AppStyles.styleRegular18(context),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
+                   Text(
                     'Reference',
-                    style: AppStyles.styleSemiBold24,
+                    style: AppStyles.styleSemiBold24(context),
                   ),
                   const SizedBox(
                     height: 10,
@@ -130,7 +130,7 @@ class NewsDetailsViewBody extends StatelessWidget {
                     child: Text(
                       newsModel.url ??
                           'Sorry currently there is no reference for this articles',
-                      style: AppStyles.styleRegular18.copyWith(
+                      style: AppStyles.styleRegular18(context).copyWith(
                         color: Colors.blue,
                       ),
                     ),

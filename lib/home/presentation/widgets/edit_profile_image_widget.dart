@@ -84,9 +84,9 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                   }
                 },
               ),
-              const Text(
+               Text(
                 'Change profile image',
-                style: AppStyles.styleSemiBold18,
+                style: AppStyles.styleSemiBold18(context),
               ),
             ],   
           ),

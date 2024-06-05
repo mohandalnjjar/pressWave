@@ -62,7 +62,7 @@ class NewsItem extends StatelessWidget {
                 children: [
                   Text(
                     newsModel.title,
-                    style: AppStyles.styleSemiBold18,
+                    style: AppStyles.styleSemiBold18(context),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),
@@ -72,7 +72,7 @@ class NewsItem extends StatelessWidget {
                         width: MediaQuery.sizeOf(context).width * .2,
                         child: Text(
                           newsModel.author ?? 'Unknown Author',
-                          style: AppStyles.styleSemiBold17,
+                          style: AppStyles.styleSemiBold17(context),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -83,9 +83,9 @@ class NewsItem extends StatelessWidget {
                           height: 23,
                         ),
                       const Spacer(),
-                      const Text(
+                       Text(
                         '',
-                        style: AppStyles.styleRegular14,
+                        style: AppStyles.styleRegular14(context),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
